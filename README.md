@@ -30,7 +30,14 @@ dotnet build -c Release
 
 ## 下载
 
- Releases 页面提供免安装绿色版 zip（自包含，无需安装 .NET）：见 [Releases](../../releases)。
+见 [Releases](../../releases)，提供两个版本，解压后双击 `LoLPing.exe` 即可使用：
+
+| 版本 | 大小 | 要求 |
+|---|---|---|
+| `LoLPing-1.0.0-win-x64.zip` | 58 MB | **无需任何运行时**，自包含绿色版，下载即用 |
+| `LoLPing-1.0.0-win-x64-dotnet8.zip` | 0.4 MB | 需先安装 [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0) |
+
+首次运行 Windows 可能弹出 SmartScreen 提示，选择"仍要运行"即可。
 
 ## 免责声明
 
