@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>LoLPing</AssemblyName>
+    <RootNamespace>LoLPing</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app-icon.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Description>LoLPing for Windows - 桌面信号轮盘（移植自 AllenTHT/LoLPing-Mac）</Description>
+    <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+    <NoWarn>WFAC010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- WinForms/WPF 双开时去掉隐式全局 using，避免类型二义性（托盘处用别名显式引用） -->
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+    <!-- 工具目录不参与主工程编译 -->
+    <Compile Remove="tools\**" />
+    <None Remove="tools\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Assets\**" CopyToOutputDirectory="PreserveNewest" Exclude="Assets\**\*.cs" />
+  </ItemGroup>
+
+</Project>
