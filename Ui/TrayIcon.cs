@@ -47,7 +47,13 @@ public sealed class TrayIcon : IDisposable
 
     private Drawing.Icon LoadIcon()
     {
-        // 1) 首选：从英雄联盟客户端提取的官方图标（Assets\app-icon.ico）
+        // 1) 首选：内嵌的官方图标（从英雄联盟客户端提取）；回退外置文件
+        try
+        {
+            using var s = LoLPing.Assets.Embedded.Open("Assets/app-icon.ico");
+            if (s != null) return new Drawing.Icon(s);
+        }
+        catch { /* 继续回退 */ }
         try
         {
             var icoFile = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "app-icon.ico");

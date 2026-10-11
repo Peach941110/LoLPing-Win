@@ -17,7 +17,7 @@
 
 ## 使用
 
-1. 下载解压，双击 `LoLPing.exe`（首次运行 Windows 可能提示 SmartScreen，选择"仍要运行"）
+1. 下载下方 exe 双击运行（单文件，无需解压、无需安装）
 2. 托盘右键 → 设置，选择你喜欢的组合键（例如 `Ctrl+Alt` + 触发键 `V`）
 3. 游戏内或桌面上一按组合键 → 轮盘出现 → 滑动选择 → 松手发送
 
@@ -30,12 +30,12 @@ dotnet build -c Release
 
 ## 下载
 
-见 [Releases](../../releases)，提供两个版本，解压后双击 `LoLPing.exe` 即可使用：
+见 [Releases](../../releases)，单文件 exe，**无需解压**，双击即用：
 
 | 版本 | 大小 | 要求 |
 |---|---|---|
-| [LoLPing-1.0.0-win-x64.zip](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.0.0/LoLPing-1.0.0-win-x64.zip) | 58 MB | **无需任何运行时**，自包含绿色版，下载即用 |
-| [LoLPing-1.0.0-win-x64-dotnet8.zip](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.0.0/LoLPing-1.0.0-win-x64-dotnet8.zip) | 0.4 MB | 需先安装 [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| [LoLPing-1.1.0-win-x64.exe](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.1.0/LoLPing-1.1.0-win-x64.exe) | 64 MB | **无需任何运行时**，自包含绿色版，双击即用 |
+| [LoLPing-1.1.0-win-x64-dotnet8.exe](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.1.0/LoLPing-1.1.0-win-x64-dotnet8.exe) | 0.7 MB | 需先安装 [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0) |
 
 首次运行 Windows 可能弹出 SmartScreen 提示，选择"仍要运行"即可。
 

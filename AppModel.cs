@@ -76,6 +76,7 @@ public sealed class AppModel
             Trace($"SetEnabled(true) chord={Settings.ChordModifiers} trigger={Settings.TriggerKey} scale={Settings.Scale}");
             _input.SetRenderScale(Settings.Scale);
             _input.Start(Settings.ChordModifiers, TriggerVk, Settings.Scale);
+            Trace($"sounds loaded: {_sound.ReadyCount}/9");
             IsEnabled = true;
             Settings.Enabled = true; Settings.Save();
             Message = $"已就绪。按住 {ChordDisplay()}，移动选择，松开发送。";
@@ -172,6 +173,7 @@ public sealed class AppModel
             case ActionKind.Commit:
                 _overlay.ShowPing(action.Ping, action.X, action.Y, Settings.Scale);
                 _sound.Play(action.Ping, Settings.Volume);
+                if (_sound.LastError is string sndErr) Trace("sound: " + sndErr); // MediaFailed 异步，最多滞后一次提交可见
                 break;
         }
     }

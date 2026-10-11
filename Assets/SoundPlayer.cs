@@ -17,12 +17,19 @@ public sealed class SoundPlayer
     private readonly List<MediaPlayer> _players = new();
     private readonly Dispatcher _dispatcher;
     public string? LastError { get; private set; }
+    /// <summary>成功加载（内嵌或外置）的音效数。</summary>
+    public int ReadyCount => _uris.Count;
 
     public SoundPlayer()
     {
         _dispatcher = Dispatcher.CurrentDispatcher;
         foreach (PingKind kind in Enum.GetValues<PingKind>())
         {
+            string rel = "Assets/Sounds/" + kind.SoundName() + ".mp3";
+            // 内嵌优先：解出到 %APPDATA%\LoLPing\sounds\ 后以文件播放（MediaPlayer 对 pack URI 不稳）
+            string? extracted = Embedded.ExtractToFile(rel, "sounds");
+            if (extracted != null) { _uris[kind] = new Uri(extracted); continue; }
+            // 回退：外置 Assets 文件夹（旧的 zip 分发方式）
             string file = Path.Combine(AppContext.BaseDirectory, "Assets", "Sounds", kind.SoundName() + ".mp3");
             if (File.Exists(file)) _uris[kind] = new Uri(file);
         }
@@ -37,7 +44,11 @@ public sealed class SoundPlayer
             var player = new MediaPlayer();
             player.Volume = Math.Min(1.0, volume);
             player.MediaEnded += (_, _) => ClosePlayer(player);
-            player.MediaFailed += (_, _) => ClosePlayer(player);
+            player.MediaFailed += (_, e) =>
+            {
+                LastError = $"音效播放失败[{kind}]: {e.ErrorException?.Message}";
+                ClosePlayer(player);
+            };
             player.Open(uri);
             player.Play();
             lock (_players)

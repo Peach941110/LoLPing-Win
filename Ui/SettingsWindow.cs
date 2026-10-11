@@ -87,12 +87,12 @@ public sealed class SettingsWindow : Window
         titleBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         titleBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-        var iconPath = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Artwork", "app-icon.png");
-        if (System.IO.File.Exists(iconPath))
+        var icon = LoadAppIcon();
+        if (icon != null)
         {
             var img = new Image
             {
-                Source = LoadBitmap(iconPath),
+                Source = icon,
                 Width = 18, Height = 18,
                 Margin = new Thickness(14, 0, 8, 0),
                 VerticalAlignment = VerticalAlignment.Center,
@@ -385,12 +385,27 @@ public sealed class SettingsWindow : Window
     /// <summary>标题栏图标：LoL 客户端官方图标。</summary>
     private void TrySetAppIcon()
     {
-        try
+        try { var ic = LoadAppIcon(); if (ic != null) Icon = ic; } catch { }
+    }
+
+    /// <summary>应用图标：优先内嵌资源，回退外置 Assets 文件。</summary>
+    private static ImageSource? LoadAppIcon()
+    {
+        using (var s = LoLPing.Assets.Embedded.Open("Assets/Artwork/app-icon.png"))
         {
-            var file = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Artwork", "app-icon.png");
-            if (System.IO.File.Exists(file)) Icon = LoadBitmap(file);
+            if (s != null)
+            {
+                var bmp = new System.Windows.Media.Imaging.BitmapImage();
+                bmp.BeginInit();
+                bmp.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                bmp.StreamSource = s;
+                bmp.EndInit();
+                bmp.Freeze();
+                return bmp;
+            }
         }
-        catch { }
+        var file = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Artwork", "app-icon.png");
+        return System.IO.File.Exists(file) ? LoadBitmap(file) : null;
     }
 
     private static ImageSource LoadBitmap(string file)

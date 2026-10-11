@@ -55,9 +55,21 @@ public static class VectorAssets
     private static void Load()
     {
         _loaded = true;
-        string file = Path.Combine(AssetRoot, "Artwork", "ping-vectors.json");
-        if (!File.Exists(file)) return;
-        using var doc = JsonDocument.Parse(File.ReadAllText(file));
+        string? text = null;
+        using (var s = Embedded.Open("Assets/Artwork/ping-vectors.json"))
+        {
+            if (s != null)
+                using (var sr = new StreamReader(s))
+                    text = sr.ReadToEnd();
+        }
+        if (text == null)
+        {
+            // 回退：外置 Assets 文件夹（旧的 zip 分发方式）
+            string file = Path.Combine(AssetRoot, "Artwork", "ping-vectors.json");
+            if (!File.Exists(file)) return;
+            text = File.ReadAllText(file);
+        }
+        using var doc = JsonDocument.Parse(text);
         foreach (PingKind kind in Enum.GetValues<PingKind>())
         {
             if (!doc.RootElement.TryGetProperty(kind.VectorKey(), out var entry)) continue;
