@@ -34,8 +34,8 @@ dotnet build -c Release
 
 | 版本 | 大小 | 要求 |
 |---|---|---|
-| `LoLPing-1.0.0-win-x64.zip` | 58 MB | **无需任何运行时**，自包含绿色版，下载即用 |
-| `LoLPing-1.0.0-win-x64-dotnet8.zip` | 0.4 MB | 需先安装 [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| [LoLPing-1.0.0-win-x64.zip](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.0.0/LoLPing-1.0.0-win-x64.zip) | 58 MB | **无需任何运行时**，自包含绿色版，下载即用 |
+| [LoLPing-1.0.0-win-x64-dotnet8.zip](https://github.com/Peach941110/LoLPing-Win/releases/download/v1.0.0/LoLPing-1.0.0-win-x64-dotnet8.zip) | 0.4 MB | 需先安装 [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0) |
 
 首次运行 Windows 可能弹出 SmartScreen 提示，选择"仍要运行"即可。
 
